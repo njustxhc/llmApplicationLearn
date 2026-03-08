@@ -1,0 +1,13 @@
+{
+  "name": "llm-application-learn",
+  "version": "1.0.0",
+  "description": "大模型应用学习 - LLM 应用开发示例与学习站（core、demos、learn_web）。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

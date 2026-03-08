@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}大模型应用学习{% endblock %}</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, "Segoe UI", sans-serif; margin: 0; padding: 1rem 2rem; max-width: 960px; margin-left: auto; margin-right: auto; }
+    a { color: #0066cc; }
+    nav { margin-bottom: 1.5rem; }
+    .topic-list { list-style: none; padding: 0; }
+    .topic-list li { margin: 0.5rem 0; }
+    .topic-list a { text-decoration: none; }
+    .topic-list a:hover { text-decoration: underline; }
+    .intro { background: #f5f5f5; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+.intro pre-wrap { white-space: pre-wrap; }
+.intro-detail h1 { font-size: 1.25rem; margin-top: 0; }
+.intro-detail h2 { font-size: 1.1rem; margin: 1rem 0 0.5rem; }
+.intro-detail h3 { font-size: 1rem; margin: 0.75rem 0 0.35rem; }
+.intro-detail h1:first-child { margin-top: 0; }
+.intro-detail p { margin: 0.5rem 0; }
+.intro-detail ul { margin: 0.5rem 0; padding-left: 1.5rem; }
+.intro-detail hr { border: none; border-top: 1px solid #ddd; margin: 1rem 0; }
+    .run-output { background: #1e1e1e; color: #d4d4d4; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 13px; white-space: pre-wrap; max-height: 400px; overflow: auto; }
+    .run-heading { font-size: 0.95rem; margin: 1rem 0 0.35rem; color: #333; }
+    .run-heading:first-of-type { margin-top: 0; }
+    .run-logs { max-height: 240px; background: #252526; }
+    .btn { padding: 0.5rem 1rem; background: #0066cc; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    .btn:hover { background: #0052a3; }
+    .btn:disabled { background: #999; cursor: not-allowed; }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <nav><a href="/">首页</a> · 大模型应用学习</nav>
+  {% block content %}{% endblock %}
+</body>
+</html>

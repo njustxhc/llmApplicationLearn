@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ topic.title }} - 大模型应用学习{% endblock %}
+{% block content %}
+<h1>{{ topic.title }}</h1>
+<h2>知识点介绍</h2>
+<div class="intro intro-detail">{% if intro_html %}{{ intro_html|safe }}{% else %}{{ topic.intro }}{% endif %}</div>
+<h2>运行 Demo</h2>
+<p>点击下方按钮在服务端执行本主题 Demo。上方为<strong>运行结果</strong>，下方为<strong>运行日志</strong>。</p>
+<button class="btn" id="runBtn">运行 Demo</button>
+<div id="runSection" style="display:none; margin-top:1rem;">
+  <h3 class="run-heading">运行结果</h3>
+  <pre id="output" class="run-output"></pre>
+  <h3 class="run-heading">运行日志</h3>
+  <pre id="logs" class="run-output run-logs"></pre>
+</div>
+<script>
+(function(){
+  var btn = document.getElementById('runBtn');
+  var section = document.getElementById('runSection');
+  var out = document.getElementById('output');
+  var logs = document.getElementById('logs');
+  btn.onclick = function(){
+    btn.disabled = true;
+    section.style.display = 'block';
+    out.textContent = '执行中...';
+    logs.textContent = '';
+    fetch('/api/demo/{{ topic.id }}/run', { method: 'POST', headers: { 'Content-Type': 'application/json' } })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        out.textContent = data.output != null ? data.output : (data.error || '(无输出)');
+        logs.textContent = data.logs != null && data.logs !== '' ? data.logs : '(无日志)';
+        btn.disabled = false;
+      })
+      .catch(function(e){
+        out.textContent = '请求失败: ' + e;
+        logs.textContent = '';
+        btn.disabled = false;
+      });
+  };
+})();
+</script>
+<p style="margin-top:1.5rem;"><a href="/">← 返回首页</a></p>
+{% endblock %}

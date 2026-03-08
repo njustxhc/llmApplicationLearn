@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}大模型应用学习 - 首页{% endblock %}
+{% block content %}
+<h1>大模型应用学习</h1>
+<p>按学习路径选择主题，进入对应页面可查看知识点介绍并运行 Demo 演示。</p>
+<ul class="topic-list">
+  {% for t in topics %}
+  <li><a href="/demo/{{ t.id }}">{{ t.title }}</a></li>
+  {% endfor %}
+</ul>
+<p><small>依赖：core.llm（火山方舟）、core.rag_doc；请设置环境变量 ARK_API_KEY 后运行各 Demo。</small></p>
+{% endblock %}
