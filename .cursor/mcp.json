@@ -2,7 +2,7 @@
   "mcpServers": {
     "weather": {
       "command": "python",
-      "args": ["-m", "demos.03_mcp.server"]
+      "args": ["-m", "demos.04_mcp.server"]
     }
   }
 }

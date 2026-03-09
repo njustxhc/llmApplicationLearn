@@ -74,15 +74,28 @@ def api_demo_run(topic_id):
     topic = next((t for t in all_topics if t["id"] == topic_id), None)
     if not topic:
         return jsonify({"error": "not found"}), 404
-    module = topic.get("module")
-    if topic_id == "11_skill" or not module:
-        return jsonify({"output": "本 demo 为 OpenClaw Skill 示例，无命令行执行。请阅读 demos/11_skill/README.md，将 demo-skill 复制到 skills/ 后启动 OpenClaw Gateway。", "logs": ""})
-    if module == "demos.03_mcp.server":
-        return jsonify({"output": "本 demo 为 MCP Server，请单独运行：python -m demos.03_mcp.server", "logs": ""})
-    if module == "demos.12_chat_app.app":
-        return jsonify({"output": "本 demo 为 Web 对话应用，请单独启动后访问。在项目根目录执行：\n\n  python -m demos.12_chat_app.app\n\n然后在浏览器打开 http://127.0.0.1:5000 即可使用（可与学习站同时运行）。", "logs": ""})
-    if topic.get("interactive"):
+    # 支持 variant: basic | advanced，选择基础或进阶模块
+    variant = "basic"
+    try:
+        body = request.get_json(silent=True) or {}
+        variant = (body.get("variant") or "basic").strip().lower()
+        if variant not in ("basic", "advanced"):
+            variant = "basic"
+    except Exception:
+        pass
+    if variant == "advanced" and topic.get("module_advanced"):
+        module = topic.get("module_advanced")
+    else:
+        module = topic.get("module")
+    if topic_id == "12_skill" or not module:
+        return jsonify({"output": "本 demo 为 Skill 示例，无命令行执行。请阅读 demos/12_skill/README.md，将 demo-skill 复制到 skills/ 后使用。", "logs": ""})
+    if module == "demos.04_mcp.server":
+        return jsonify({"output": "本 demo 为 MCP Server，请单独运行：python -m demos.04_mcp.server", "logs": ""})
+    if module == "demos.13_chat_app.app":
+        return jsonify({"output": "本 demo 为 Web 对话应用，请单独启动后访问。在项目根目录执行：\n\n  python -m demos.13_chat_app.app\n\n然后在浏览器打开 http://127.0.0.1:5000 即可使用（可与学习站同时运行）。", "logs": ""})
+    if topic.get("interactive") and variant == "basic":
         return jsonify({"output": "本 demo 为交互式（需在终端输入），请在项目根目录运行：\npython -m " + module, "logs": ""})
+    DEMO_RUN_TIMEOUT = 180  # 3 分钟，LLM 多轮/检索等可能较慢
     try:
         proc = subprocess.run(
             [sys.executable, "-m", module],
@@ -91,7 +104,7 @@ def api_demo_run(topic_id):
             text=True,
             encoding="utf-8",
             errors="replace",
-            timeout=60,
+            timeout=DEMO_RUN_TIMEOUT,
             env={**os.environ, "PYTHONIOENCODING": "utf-8"},
         )
         out = (proc.stdout or "").strip()
@@ -102,7 +115,7 @@ def api_demo_run(topic_id):
             "returncode": proc.returncode,
         })
     except subprocess.TimeoutExpired:
-        return jsonify({"output": "执行超时（60s）", "logs": "", "error": "timeout"})
+        return jsonify({"output": "执行超时（%ds）" % DEMO_RUN_TIMEOUT, "logs": "", "error": "timeout"})
     except Exception as e:
         return jsonify({"output": str(e), "logs": "", "error": str(e)})
 

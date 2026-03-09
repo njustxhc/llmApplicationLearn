@@ -34,7 +34,13 @@
 
 ## 本 Demo 做了什么
 
+### 基础用例
+
 - 使用 **core.llm** 的 `chat(messages)` 发一条 user 消息，收一条 assistant 回复。
 - 不设 system、不保留历史，仅演示最基础的「一问一答」调用链。
+- 运行：点击「运行基础 Demo」或执行 `python -m demos.01_api_chat.run`。
 
-运行：在项目根目录执行 `python -m demos.01_api_chat.run`。
+### 进阶用例
+
+- 在同一会话中连续进行 3 轮「用户提问 → 模型回复」，每轮将上一轮的 user 与 assistant 追加到 `messages` 再请求，演示多轮对话与上下文。
+- 运行：点击「运行进阶 Demo」或执行 `python -m demos.01_api_chat.run_advanced`。

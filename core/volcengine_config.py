@@ -12,7 +12,7 @@ def _load_dotenv() -> None:
         root = Path(__file__).resolve().parent.parent
         env_file = root / ".env"
         if env_file.is_file():
-            load_dotenv(env_file, override=False)
+            load_dotenv(env_file, override=True)
     except ImportError:
         pass
 

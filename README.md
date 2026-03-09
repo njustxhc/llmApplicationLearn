@@ -1,6 +1,6 @@
 # 大模型应用学习（llmApplicationLearn）
 
-本仓库为 **大模型应用学习** 项目，提供 **core**（统一 LLM、文档 RAG）、**demos**（18 个主题 demo，含 Skill 示例、综合对话应用及流式/结构化/重试/截断等基础概念）、**learn_web**（学习站 Web）。
+本仓库为 **大模型应用学习** 项目，提供 **core**（统一 LLM、文档 RAG）、**demos**（19 个主题 demo，含 LangChain、Skill 示例、综合对话应用及流式/结构化/重试/截断等）、**learn_web**（学习站 Web）。
 
 ---
 
@@ -8,9 +8,9 @@
 
 - **学习站 Web**：`python learn_web/app.py` → 打开 <http://127.0.0.1:5001/> ，按主题查看知识点并运行 Demo。
 - **核心能力**：`core/llm`（统一 LLM 调用）、`core/rag_doc`（文档 RAG）。
-- **各主题 Demo**：`python -m demos.01_api_chat.run` … `demos.18_context_truncate.run`；综合对话应用 `python -m demos.12_chat_app.app`（Web，端口 5000）。见 [demos/README.md](demos/README.md)。
+- **各主题 Demo**：`python -m demos.01_api_chat.run` … `demos.19_context_truncate.run`；综合对话应用 `python -m demos.13_chat_app.app`（Web，端口 5000）。见 [demos/README.md](demos/README.md)。
 - **学习路径文档**：[docs/大模型应用学习路径.md](docs/大模型应用学习路径.md)。
-- **Skill 示例**：见 [demos/11_skill/](demos/11_skill/)，演示 `SKILL.md` 写法与目录结构。
+- **Skill 示例**：见 [demos/12_skill/](demos/12_skill/)，演示 `SKILL.md` 写法与目录结构。
 
 ### 环境配置（API Key、模型、超时）
 
@@ -54,7 +54,7 @@
    `python learn_web/app.py`，浏览器打开 <http://127.0.0.1:5001/> 按主题学习并运行 Demo。
 
 3. **综合对话页**  
-   `python -m demos.12_chat_app.app`，打开 <http://127.0.0.1:5000/> ，集成 RAG、MCP、联网搜索。
+   `python -m demos.13_chat_app.app`，打开 <http://127.0.0.1:5000/> ，集成 RAG、MCP、联网搜索。
 
 ---
 
@@ -67,7 +67,7 @@ llmApplicationLearn/
 ├── core/                 # 大模型应用核心：统一 LLM、文档 RAG
 │   ├── llm/
 │   └── rag_doc/
-├── demos/                # 主题 demo（01_api_chat … 18_context_truncate、11_skill、12_chat_app）
+├── demos/                # 主题 demo（01_api_chat … 19_context_truncate、12_skill、13_chat_app）
 ├── learn_web/            # 学习站 Web（知识点 + 运行 Demo），端口 5001
 └── docs/
     └── 大模型应用学习路径.md
